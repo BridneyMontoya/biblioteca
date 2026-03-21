@@ -14,6 +14,9 @@ class AtencionForm
     {
         return $schema
             ->components([
+                Section::make('Datos quenerales')
+                    ->description('Ingrese los datos solicitados para completar el registro de la atencion')
+                    ->schema([
                 Select::make('usuario_id')
                     ->relationship('usuario', 'nombres')
                     ->required(),
@@ -41,6 +44,7 @@ class AtencionForm
 
                 DateTimePicker::make('fecha_devolucion'),
 
+       ])->columns(),
 
             ])->columns(1);
     }
