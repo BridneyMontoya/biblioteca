@@ -9,10 +9,13 @@ use App\Filament\Resources\Atencions\Schemas\AtencionForm;
 use App\Filament\Resources\Atencions\Tables\AtencionsTable;
 use App\Models\Atencion;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AtencionResource extends Resource
 {
@@ -21,6 +24,8 @@ class AtencionResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'Atencion';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Atenciones';
 
     public static function form(Schema $schema): Schema
     {
@@ -47,4 +52,13 @@ class AtencionResource extends Resource
             'edit' => EditAtencion::route('/{record}/edit'),
         ];
     }
+    
+    public static function getRecordRouteBindingEloquentQuery(): Builder
+    {
+        return parent::getRecordRouteBindingEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
+
 }

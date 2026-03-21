@@ -4,19 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Atencion extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $primaryKey = 'id';
+    protected $table = 'atenciones';
 
     protected $fillable = [
         'usuario_id',
         'libro_id',
         'tipo_atencion',
         'fecha_atencion',
-        'fecha_devol',
+        'fecha_devolucion',
         'estado',
     ];
 

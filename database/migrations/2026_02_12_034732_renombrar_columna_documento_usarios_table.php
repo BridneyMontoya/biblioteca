@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('areas_conocimiento', function (Blueprint $table) {
-        $table->id('id');
-        $table->string('nombre_area', 100);
-        $table->timestamps();
-});
+        Schema::table('usuarios', function (Blueprint $table) {
+            $table->renameColumn('documento', 'numero_documento');
+        });
     }
 
     /**
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('area_conocimientos');
+        Schema::table('usuarios', function (Blueprint $table) {
+            $table->renameColumn('numero_documento', 'documento');
+        });
     }
 };

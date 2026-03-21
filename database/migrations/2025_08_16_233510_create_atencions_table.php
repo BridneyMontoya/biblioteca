@@ -16,9 +16,9 @@ return new class extends Migration
         $table->foreignId('usuario_id')->constrained('usuarios');
         $table->foreignId('libro_id')->constrained('libros');
         $table->enum('tipo_atencion', ['consulta', 'prestamo']);
-        $table->dateTime('fecha_atencion');
-        $table->dateTime('fecha_devol')->nullable();
         $table->enum('estado', ['activa', 'finalizada']);
+        $table->dateTime('fecha_atencion');
+        $table->dateTime('fecha_devolucion')->nullable();
         $table->timestamps();
 });
     }
@@ -31,3 +31,5 @@ return new class extends Migration
         Schema::dropIfExists('atencions');
     }
 };
+
+

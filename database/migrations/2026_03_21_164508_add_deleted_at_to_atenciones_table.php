@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('roles', function (Blueprint $table) {
-        $table->id('id');
-        $table->string('nombre_rol', 50);
-        $table->timestamps();
-});
+        Schema::table('atenciones', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rols');
+        Schema::table('atenciones', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

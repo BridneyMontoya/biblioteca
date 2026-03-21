@@ -16,16 +16,16 @@ class Libro extends Model
         'autor',
         'editorial',
         'anio',
-        'ISBN',
-        'id_area',
+        'isbn',
+        'area_id',
         'stock_total',
-        'stock_disp',
+        'stock_disponible',
     ];
 
     // Relación: un libro pertenece a un área de conocimiento
     public function areaConocimiento()
     {
-        return $this->belongsTo(AreaConocimiento::class, 'id_area');
+        return $this->belongsTo(AreaConocimiento::class, 'area_id');
     }
 
     // Relación: un libro tiene muchas atenciones

@@ -9,6 +9,7 @@ use App\Filament\Resources\AreaConocimientos\Schemas\AreaConocimientoForm;
 use App\Filament\Resources\AreaConocimientos\Tables\AreaConocimientosTable;
 use App\Models\AreaConocimiento;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +22,8 @@ class AreaConocimientoResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'AreaConocimiento';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Ajustes';
 
     public static function form(Schema $schema): Schema
     {

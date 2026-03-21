@@ -1,72 +1,70 @@
 <?php
-namespace App\Filament\Resources;
 
-use App\Filament\Resources\UsuarioResource\Pages;
+namespace App\Filament\Resources\Usuarios;
+
+use App\Filament\Resources\Usuarios\Pages\CreateUsuario;
+use App\Filament\Resources\Usuarios\Pages\EditUsuario;
+use App\Filament\Resources\Usuarios\Pages\ListUsuarios;
+use App\Filament\Resources\Usuarios\Pages\ViewUsuario;
+use App\Filament\Resources\Usuarios\Schemas\UsuarioForm;
+use App\Filament\Resources\Usuarios\Schemas\UsuarioInfolist;
+use App\Filament\Resources\Usuarios\Tables\UsuariosTable;
 use App\Models\Usuario;
-use Filament\Forms;
-use Filament\Resources\Form;
+use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UsuarioResource extends Resource
 {
     protected static ?string $model = Usuario::class;
-    protected static ?string $navigationIcon = 'heroicon-o-user';
 
-    public static function form(Form $form): Form
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $recordTitleAttribute = 'nombre';
+
+    protected static UnitEnum|string|null $navigationGroup = 'General'; 
+
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('nombre')->required(),
-                Forms\Components\TextInput::make('apellido')->required(),
-                Forms\Components\TextInput::make('correo')->email()->required(),
-                Forms\Components\Select::make('tipo_usuario')
-                    ->options([
-                        'estudiante' => 'Estudiante',
-                        'docente' => 'Docente',
-                        'externo' => 'Externo',
-                    ])->required(),
-                Forms\Components\TextInput::make('carrera'),
-                Forms\Components\TextInput::make('especialidad'),
-                Forms\Components\TextInput::make('documento_id')->required(),
-                Forms\Components\PasswordInput::make('contraseña')->required(),
-                Forms\Components\Select::make('id_rol')
-                    ->relationship('rol', 'nombre_rol')
-                    ->required(),
-            ]);
+        return UsuarioForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return UsuarioInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('apellido')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('correo'),
-                Tables\Columns\TextColumn::make('tipo_usuario'),
-                Tables\Columns\TextColumn::make('rol.nombre_rol'),
-            ])
-            ->filters([
-                // Ejemplo de filtros por rol o tipo_usuario si lo deseas
-            ]);
+        return UsuariosTable::configure($table);
     }
 
     public static function getRelations(): array
     {
-        return [
-            // Aquí se pueden agregar relaciones (Atenciones)
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsuarios::route('/'),
-            'create' => Pages\CreateUsuario::route('/create'),
-            'edit' => Pages\EditUsuario::route('/{record}/edit'),
+            'index' => ListUsuarios::route('/'),
+            'create' => CreateUsuario::route('/create'),
+            'view' => ViewUsuario::route('/{record}'),
+            'edit' => EditUsuario::route('/{record}/edit'),
         ];
     }
-};
 
+    public static function getRecordRouteBindingEloquentQuery(): Builder
+    {
+        return parent::getRecordRouteBindingEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
+}

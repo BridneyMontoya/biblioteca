@@ -17,11 +17,13 @@ return new class extends Migration
         $table->string('autor', 255);
         $table->string('editorial', 100);
         $table->year('anio');
-        $table->string('ISBN', 20);
-        $table->foreignId('id_area')->constrained('areas_conocimiento');
+        $table->string('isbn', 20);
+        $table->foreignId('area_conocimiento_id')->constrained('area_conocimiento');
         $table->integer('stock_total');
-        $table->integer('stock_disp');
+        $table->integer('stock_disponible');
+
         $table->timestamps();
+        $table->softDeletes();
 });
     }
 

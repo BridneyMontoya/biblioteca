@@ -13,16 +13,18 @@ return new class extends Migration
     {
     Schema::create('usuarios', function (Blueprint $table) {
         $table->id('id');
-        $table->string('nombre', 100);
-        $table->string('apellido', 100);
+        $table->string('nombres', 100);
+        $table->string('apellidos', 100);
         $table->string('correo', 100)->unique();
+        $table->string('documento')->unique();
         $table->enum('tipo_usuario', ['estudiante', 'docente', 'externo']);
-        $table->string('carrera', 100)->nullable();
-        $table->string('especialidad', 100)->nullable();
-        $table->string('documento_id', 20);
-        $table->string('contraseña');
-        $table->integer('id_rol')->constrained('roles');
+        $table->foreignId('documento_id')->nullable()->constrained();
+        $table->foreignId('especialidad_id')->nullable()->constrained('especialidades');
+        $table->foreignId('carrera_id')->nullable()->constrained('carreras');
+        $table->foreignId('rol_id')->constrained('roles');
+
         $table->timestamps();
+        $table->softDeletes();
 });
     }
 

@@ -9,6 +9,7 @@ use App\Filament\Resources\Libros\Schemas\LibroForm;
 use App\Filament\Resources\Libros\Tables\LibrosTable;
 use App\Models\Libro;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,7 +21,9 @@ class LibroResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Libro';
+    protected static ?string $recordTitleAttribute = 'titulo';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Atenciones';
 
     public static function form(Schema $schema): Schema
     {
