@@ -21,6 +21,12 @@ class AreaConocimiento extends Model
     {
         return $this->hasMany(Libro::class, 'area_id');
     }
+
+    //Un area tiene muchas carreras
+    public function carreras(){
+        return $this->hasMany(Carrera::class, 'area_conocimiento_id');
+
+    }
 }
 
 

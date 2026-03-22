@@ -9,7 +9,7 @@ return new class extends Migration
     /*
     * Estas tablas se crean de forma masiva porque tienen la misma estructura
     */
-    public $tablas = ['documentos', 'especialidades', 'carreras', 'roles', 'area_conocimiento'];
+    public $tablas = ['documentos', 'especialidades'];
 
     /**
      * Run the migrations.
