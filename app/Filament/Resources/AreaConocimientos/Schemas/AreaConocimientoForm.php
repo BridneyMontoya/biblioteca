@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\AreaConocimientos\Schemas;
 
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
 
 class AreaConocimientoForm
 {
@@ -10,7 +11,15 @@ class AreaConocimientoForm
     {
         return $schema
             ->components([
-                //
+                TextInput::make('nombre')
+                    ->label('Nombre')
+                    ->required()
+                    ->maxLength(255)
+                    ->placeholder('Ingrese el área de conocimiento'),
+
+
             ]);
     }
+
+
 }
