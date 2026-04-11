@@ -19,15 +19,53 @@ class LibrosTable
     {
         return $table
             ->columns([
-                TextColumn::make('titulo'),
-                TextColumn::make('autor'),
-                TextColumn::make('editorial'),
-                TextColumn::make('isbn'),
-                TextColumn::make('anio'),
+                TextColumn::make('titulo')
+                    ->label('Título')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(40)
+                    ->icon('heroicon-m-book-open'),
+
+                TextColumn::make('autor')
+                    ->label('Autor')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('editorial')
+                    ->label('Editorial')
+                    ->toggleable(),
+
+                TextColumn::make('isbn')
+                    ->label('ISBN')
+                    ->searchable()
+                    ->toggleable(),
+
+                TextColumn::make('anio')
+                    ->label('Año')
+                    ->sortable(),
+
+                TextColumn::make('areaConocimiento.nombre')
+                    ->label('Área')
+                    ->badge()
+                    ->color('info')
+                    ->searchable(),
+
+                TextColumn::make('stock_disponible')
+                    ->label('Disponible')
+                    ->badge()
+                    ->color(fn ($state): string => $state > 0 ? 'success' : 'danger')
+                    ->sortable(),
+
+                TextColumn::make('stock_total')
+                    ->label('Total')
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
+            ->defaultSort('titulo')
+            ->striped()
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

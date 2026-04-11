@@ -1,0 +1,260 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament//**/*';
+@source '../../../../resources/views/**/*';
+/* ─────────────────────────────────────────────────────────────────────────────
+   BIBLIOTECA UML — Custom Filament Theme
+   Palette: Green (primary) + Zinc (neutral gray)
+   Dark mode: uses Filament's .dark class strategy + prefers-color-scheme
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 1. Design tokens ───────────────────────────────────────────────────────── */
+:root {
+    /* Sidebar — light */
+    --sidebar-bg:           #f4f4f5;   /* zinc-100 */
+    --sidebar-border:       #e4e4e7;   /* zinc-200 */
+    --sidebar-header-bg:    #ffffff;
+    --sidebar-header-border:#e4e4e7;
+
+    /* Nav items — light */
+    --nav-item-text:        #52525b;   /* zinc-600 */
+    --nav-item-hover-bg:    #e4e4e7;   /* zinc-200 */
+    --nav-item-hover-text:  #18181b;   /* zinc-900 */
+    --nav-item-active-bg:   #16a34a;   /* green-600 */
+    --nav-item-active-text: #ffffff;
+
+    /* Group labels */
+    --nav-group-label:      #a1a1aa;   /* zinc-400 */
+
+    /* Topbar — light */
+    --topbar-bg:            #ffffff;
+    --topbar-border:        #e4e4e7;
+
+    /* Content surface */
+    --surface-bg:           #fafafa;
+    --surface-border:       #e4e4e7;
+
+    /* Heading */
+    --heading-color:        #18181b;   /* zinc-900 */
+    --subheading-color:     #71717a;   /* zinc-500 */
+
+    /* Table */
+    --table-header-color:   #71717a;
+    --table-row-hover-bg:   #f0fdf4;   /* green-50 */
+}
+
+/* ── 2. Dark mode tokens ────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --sidebar-bg:           #18181b;   /* zinc-900 */
+        --sidebar-border:       #27272a;   /* zinc-800 */
+        --sidebar-header-bg:    #09090b;   /* zinc-950 */
+        --sidebar-header-border:#27272a;
+
+        --nav-item-text:        #a1a1aa;   /* zinc-400 */
+        --nav-item-hover-bg:    #27272a;   /* zinc-800 */
+        --nav-item-hover-text:  #fafafa;   /* zinc-50  */
+        --nav-item-active-bg:   #16a34a;   /* green-600 */
+        --nav-item-active-text: #ffffff;
+
+        --nav-group-label:      #52525b;   /* zinc-600 */
+
+        --topbar-bg:            #18181b;
+        --topbar-border:        #27272a;
+
+        --surface-bg:           #18181b;
+        --surface-border:       #27272a;
+
+        --heading-color:        #fafafa;
+        --subheading-color:     #a1a1aa;
+
+        --table-header-color:   #71717a;
+        --table-row-hover-bg:   #14532d1a; /* green-900 @ 10% */
+    }
+}
+
+/* Filament toggles .dark on <html> — honour both strategies */
+.dark {
+    --sidebar-bg:           #18181b;
+    --sidebar-border:       #27272a;
+    --sidebar-header-bg:    #09090b;
+    --sidebar-header-border:#27272a;
+
+    --nav-item-text:        #a1a1aa;
+    --nav-item-hover-bg:    #27272a;
+    --nav-item-hover-text:  #fafafa;
+    --nav-item-active-bg:   #16a34a;
+    --nav-item-active-text: #ffffff;
+
+    --nav-group-label:      #52525b;
+
+    --topbar-bg:            #18181b;
+    --topbar-border:        #27272a;
+
+    --surface-bg:           #18181b;
+    --surface-border:       #27272a;
+
+    --heading-color:        #fafafa;
+    --subheading-color:     #a1a1aa;
+
+    --table-header-color:   #71717a;
+    --table-row-hover-bg:   #14532d1a;
+}
+
+/* ── 3. Brand name ──────────────────────────────────────────────────────────── */
+.fi-brand-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--heading-color);
+}
+
+/* ── 4. Sidebar ─────────────────────────────────────────────────────────────── */
+.fi-sidebar,
+.fi-sidebar-nav {
+    background-color: var(--sidebar-bg) !important;
+    border-right-color: var(--sidebar-border) !important;
+}
+
+.fi-sidebar-header {
+    background-color: var(--sidebar-header-bg) !important;
+    border-bottom: 1px solid var(--sidebar-header-border) !important;
+}
+
+/* Nav items */
+.fi-sidebar-item-btn {
+    color: var(--nav-item-text) !important;
+    border-radius: 0.5rem !important;
+    transition: background-color 0.12s ease, color 0.12s ease !important;
+}
+
+.fi-sidebar-item-btn:hover {
+    background-color: var(--nav-item-hover-bg) !important;
+    color: var(--nav-item-hover-text) !important;
+}
+
+/* Active item: green pill */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background-color: var(--nav-item-active-bg) !important;
+    color: var(--nav-item-active-text) !important;
+    font-weight: 600 !important;
+}
+
+/* Active icon inherits white in the pill */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn .fi-icon {
+    color: var(--nav-item-active-text) !important;
+}
+
+/* Active label text inside pill */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn .fi-sidebar-item-label {
+    color: var(--nav-item-active-text) !important;
+}
+
+/* Nav group labels */
+.fi-sidebar-group-label {
+    color: var(--nav-group-label) !important;
+    font-size: 0.64rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.09em !important;
+    text-transform: uppercase !important;
+}
+
+/* ── 5. Topbar ──────────────────────────────────────────────────────────────── */
+.fi-topbar {
+    background-color: var(--topbar-bg) !important;
+    border-bottom: 1px solid var(--topbar-border) !important;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04) !important;
+}
+
+/* ── 6. Page headings ───────────────────────────────────────────────────────── */
+.fi-page-header {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.25rem !important;
+}
+
+.fi-page-heading {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    color: var(--heading-color) !important;
+}
+
+/* ── 7. Tables ──────────────────────────────────────────────────────────────── */
+.fi-ta-header-cell {
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: var(--table-header-color) !important;
+}
+
+/* Row hover — light green tint in light mode, dark green in dark */
+.fi-ta-row:hover td {
+    background-color: var(--table-row-hover-bg) !important;
+}
+
+/* ── 8. Sections / Widgets ──────────────────────────────────────────────────── */
+.fi-section {
+    border-radius: 0.75rem !important;
+    border-color: var(--surface-border) !important;
+}
+
+.fi-wi-stats-overview-stat {
+    border-radius: 0.75rem !important;
+    border-color: var(--surface-border) !important;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05) !important;
+    transition: box-shadow 0.18s ease !important;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    box-shadow: 0 4px 14px 0 rgb(0 0 0 / 0.09) !important;
+}
+
+/* ── 9. Buttons ─────────────────────────────────────────────────────────────── */
+.fi-btn {
+    border-radius: 0.5rem !important;
+}
+
+/* ── 10. Badges ─────────────────────────────────────────────────────────────── */
+/* Light mode */
+.fi-badge-color-success {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+}
+.fi-badge-color-warning {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+}
+.fi-badge-color-danger {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
+.fi-badge-color-info {
+    background-color: #ccfbf1 !important;
+    color: #134e4a !important;
+}
+.fi-badge-color-primary {
+    background-color: #dcfce7 !important;
+    color: #14532d !important;
+}
+
+/* Dark mode overrides for badges */
+.dark .fi-badge-color-success {
+    background-color: #14532d !important;
+    color: #bbf7d0 !important;
+}
+.dark .fi-badge-color-warning {
+    background-color: #78350f !important;
+    color: #fde68a !important;
+}
+.dark .fi-badge-color-danger {
+    background-color: #7f1d1d !important;
+    color: #fecaca !important;
+}
+.dark .fi-badge-color-info {
+    background-color: #134e4a !important;
+    color: #99f6e4 !important;
+}
+.dark .fi-badge-color-primary {
+    background-color: #14532d !important;
+    color: #bbf7d0 !important;
+}

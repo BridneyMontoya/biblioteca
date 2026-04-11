@@ -2,14 +2,10 @@
 
 namespace App\Filament\Resources\Carreras\Schemas;
 
-
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-
-use function Laravel\Prompts\select;
 
 class CarreraForm
 {
@@ -17,17 +13,21 @@ class CarreraForm
     {
         return $schema
             ->components([
-                TextInput::make('nombre')
-                ->label("Nombre de la carrera")
-                    ->required()
-                    ->maxLength(255),
+                Section::make('Información de la Carrera')
+                    ->description('Registre los datos de la carrera académica')
+                    ->schema([
+                        TextInput::make('nombre')
+                            ->label('Nombre de la Carrera')
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('Ej: Ingeniería de Sistemas'),
 
-                    Select::make('area_conocimiento_id')
-                    ->label("Area de conocimiento")
-                    ->relationship('area', 'nombre')
-                    ->required()
+                        Select::make('area_conocimiento_id')
+                            ->label('Área de Conocimiento')
+                            ->relationship('area', 'nombre')
+                            ->required()
+                            ->placeholder('Seleccione un área'),
+                    ])->columns(2),
             ]);
     }
 }
-
-

@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Atencions\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -14,43 +13,51 @@ class AtencionForm
     {
         return $schema
             ->components([
-                Section::make('Datos quenerales')
-                    ->description('Ingrese los datos solicitados para completar el registro de la atencion')
+                Section::make('Información de la Atención')
+                    ->description('Registre los datos de la atención del usuario')
                     ->schema([
-                Select::make('usuario_id')
-                    ->relationship('usuario', 'nombres')
-                    ->required(),
+                        Select::make('usuario_id')
+                            ->label('Usuario')
+                            ->relationship('usuario', 'nombres')
+                            ->required(),
 
-                Select::make('libro_id')
-                    ->relationship('libro', 'titulo')
-                    ->required(),
+                        Select::make('libro_id')
+                            ->label('Libro')
+                            ->relationship('libro', 'titulo')
+                            ->required(),
 
-                Select::make('tipo_atencion')
-                    ->options([
-                        'consulta' => 'Consulta',
-                        'prestamo' => 'Préstamo',
-                    ])
-                    ->required(),
+                        Select::make('tipo_atencion')
+                            ->label('Tipo de Atención')
+                            ->options([
+                                'consulta' => 'Consulta',
+                                'prestamo' => 'Préstamo',
+                            ])
+                            ->required(),
 
-                Select::make('estado')
-                    ->options([
-                        'activa' => 'Activa',
-                        'finalizada' => 'Finalizada',
-                    ])
-                    ->required(),
+                        Select::make('estado')
+                            ->label('Estado')
+                            ->options([
+                                'activa' => 'Activa',
+                                'finalizada' => 'Finalizada',
+                            ])
+                            ->required(),
 
-                DateTimePicker::make('fecha_atencion')
-                    ->required(),
+                    ])->columns(2),
 
-                DateTimePicker::make('fecha_devolucion'),
+                Section::make('Fechas')
+                    ->description('Información temporal de la atención')
+                    ->schema([
+                        DateTimePicker::make('fecha_atencion')
+                            ->label('Fecha de Atención')
+                            ->required()
+                            ->placeholder('Seleccione fecha y hora'),
 
-       ])->columns(),
+                        DateTimePicker::make('fecha_devolucion')
+                            ->label('Fecha de Devolución')
+                            ->nullable()
+                            ->placeholder('Opcional - Seleccione fecha y hora si se devolvió'),
 
-            ])->columns(1);
+                    ])->columns(2),
+            ]);
     }
 }
-
-
-
-
-

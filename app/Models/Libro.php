@@ -11,7 +11,6 @@ class Libro extends Model
     use HasFactory;
     use SoftDeletes;
 
-
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -20,7 +19,7 @@ class Libro extends Model
         'editorial',
         'anio',
         'isbn',
-        'area_id',
+        'area_conocimiento_id',
         'stock_total',
         'stock_disponible',
     ];
@@ -37,7 +36,3 @@ class Libro extends Model
         return $this->hasMany(Atencion::class, 'libro_id');
     }
 }
-
-
-
-

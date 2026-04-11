@@ -13,35 +13,65 @@ class UsuarioForm
     {
         return $schema
             ->components([
-                Section::make('Datos generales de los usuarios')
-                    ->description('Ingrese los datos solicitados para completar el registro de los usuarios')
+                Section::make('Datos Personales')
+                    ->description('Información básica del usuario')
                     ->schema([
-                        TextInput::make('nombres'),
-                        TextInput::make('apellidos'),
-                        TextInput::make('correo'),
-                        TextInput::make('numero_documento'),
+                        TextInput::make('nombres')
+                            ->label('Nombres')
+                            ->required()
+                            ->maxLength(100)
+                            ->placeholder('Ingrese nombres'),
+                        TextInput::make('apellidos')
+                            ->label('Apellidos')
+                            ->required()
+                            ->maxLength(100)
+                            ->placeholder('Ingrese apellidos'),
+                        TextInput::make('correo')
+                            ->label('Correo Electrónico')
+                            ->email()
+                            ->required()
+                            ->unique(table: 'usuarios', column: 'correo', ignoreRecord: true)
+                            ->placeholder('usuario@ejemplo.com'),
+                        TextInput::make('numero_documento')
+                            ->label('Número de Documento')
+                            ->required()
+                            ->unique(table: 'usuarios', column: 'numero_documento', ignoreRecord: true)
+                            ->placeholder('Ej: 12345678'),
+                    ])->columns(2),
+
+                Section::make('Tipo y Clasificación')
+                    ->description('Categorización del usuario en el sistema')
+                    ->schema([
                         Select::make('tipo_usuario')
+                            ->label('Tipo de Usuario')
                             ->options([
                                 'estudiante' => 'Estudiante',
                                 'docente' => 'Docente',
                                 'externo' => 'Externo',
-                            ]),
-                        Select::make('carrera_id')
-                            ->relationship('carrera', 'nombre'),
-                            Select::make('especialidad_id')
-                            ->relationship('especialidad', 'nombre'),
-                            Select::make('documento_id')
-                            ->relationship('documento', 'nombre'),
-                            Select::make('rol_id')
-                            ->relationship('rol', 'nombre'),
-                    ])->columns(),
+                            ])
+                            ->required(),
+                        Select::make('rol_id')
+                            ->label('Rol del Sistema')
+                            ->relationship('rol', 'nombre')
+                            ->required(),
+                    ])->columns(2),
 
-            ])->columns(1);
+                Section::make('Información Académica')
+                    ->description('Datos de carrera, especialidad y documento')
+                    ->schema([
+                        Select::make('carrera_id')
+                            ->label('Carrera')
+                            ->relationship('carrera', 'nombre')
+                            ->nullable(),
+                        Select::make('especialidad_id')
+                            ->label('Especialidad')
+                            ->relationship('especialidad', 'nombre')
+                            ->nullable(),
+                        Select::make('documento_id')
+                            ->label('Tipo de Documento')
+                            ->relationship('documento', 'nombre')
+                            ->required(),
+                    ])->columns(3),
+            ]);
     }
 }
-
-
-
-
-
-
