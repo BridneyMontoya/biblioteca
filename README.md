@@ -95,20 +95,17 @@ cp .env.example .env
 # 5. Generar clave de aplicación
 php artisan key:generate
 
-# 6. Configurar la base de datos en .env
-# DB_CONNECTION=sqlite  (por defecto, o configura MySQL/PostgreSQL)
-
-# 7. Ejecutar migraciones
+# 6. Ejecutar migraciones
 php artisan migrate
 
-# 8. (Opcional) Ejecutar seeders
+# 7. (Opcional) Ejecutar seeders
 php artisan db:seed
 
-# 9. Compilar assets
+# 8. Compilar assets
 npm run build
 
-# 10. Iniciar el servidor de desarrollo
-composer run dev
+# 9. Iniciar el servidor de desarrollo con Laravel Herd / XAMPP
+https://biblioteca.test
 ```
 
 ### Acceso al Panel
