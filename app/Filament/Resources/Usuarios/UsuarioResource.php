@@ -11,24 +11,25 @@ use App\Filament\Resources\Usuarios\Schemas\UsuarioInfolist;
 use App\Filament\Resources\Usuarios\Tables\UsuariosTable;
 use App\Models\Usuario;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class UsuarioResource extends Resource
 {
     protected static ?string $model = Usuario::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $navigationLabel = 'Usuarios';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static ?string $recordTitleAttribute = 'nombre';
 
-    protected static UnitEnum|string|null $navigationGroup = 'General'; 
+    protected static UnitEnum|string|null $navigationGroup = 'General';
 
     public static function form(Schema $schema): Schema
     {

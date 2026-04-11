@@ -11,19 +11,22 @@ use App\Filament\Resources\Documentos\Schemas\DocumentoInfolist;
 use App\Filament\Resources\Documentos\Tables\DocumentosTable;
 use App\Models\Documento;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class DocumentoResource extends Resource
 {
     protected static ?string $model = Documento::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $navigationLabel = 'Documentos';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedIdentification;
 
     protected static ?string $recordTitleAttribute = 'nombre';
+
     protected static UnitEnum|string|null $navigationGroup = 'Ajustes';
 
     public static function form(Schema $schema): Schema

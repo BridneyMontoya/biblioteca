@@ -9,17 +9,19 @@ use App\Filament\Resources\Rols\Schemas\RolForm;
 use App\Filament\Resources\Rols\Tables\RolsTable;
 use App\Models\Rol;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class RolResource extends Resource
 {
     protected static ?string $model = Rol::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $navigationLabel = 'Roles';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
 
     protected static ?string $recordTitleAttribute = 'nombre';
 

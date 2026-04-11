@@ -9,19 +9,21 @@ use App\Filament\Resources\AreaConocimientos\Schemas\AreaConocimientoForm;
 use App\Filament\Resources\AreaConocimientos\Tables\AreaConocimientosTable;
 use App\Models\AreaConocimiento;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class AreaConocimientoResource extends Resource
 {
     protected static ?string $model = AreaConocimiento::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $navigationLabel = 'Áreas de Conocimiento';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
     protected static ?string $recordTitleAttribute = 'AreaConocimiento';
 
@@ -52,6 +54,7 @@ class AreaConocimientoResource extends Resource
             'edit' => EditAreaConocimiento::route('/{record}/edit'),
         ];
     }
+
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()
